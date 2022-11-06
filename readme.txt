@@ -15,3 +15,10 @@ To Run the application on your system follow these steps:
 	step 4: To run the project type 'npx nodemon' on that powershell window.
 
 ========================================================Develop By Ritam Podder=======================================================
+
+Hosted on My AWS free server:	http://13.127.75.216:90/
+
+	
+[Please Note: I upload this on aws with the help of github. This ip will valid till 16th, Nov 2022. After that this ip shouldn't valid.]
+
+========================================================Develop By Ritam Podder=======================================================
