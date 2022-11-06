@@ -19,6 +19,6 @@ To Run the application on your system follow these steps:
 Hosted on My AWS free server:	http://13.127.75.216:90/
 
 	
-[Please Note: I upload this on aws with the help of github. This ip will valid till 16th, Nov 2022. After that this ip shouldn't valid.]
+[Please Note: I upload this on AWS with the help of GitHub. This IP will be valid till 16th, Nov 2022. After that, this IP shouldn't valid.]
 
 ========================================================Develop By Ritam Podder=======================================================
