@@ -70,7 +70,7 @@
         <!--Drop Down-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
-    
+        
     </head>
 
     <body class="layout-sticky-subnav layout-default">
@@ -99,27 +99,27 @@
 
                     <!-- Navbar -->
 
-                    <div class="navbar navbar-expand pr-0 navbar-shadow"
+                    <div class="navbar navbar-expand pr-0 navbar-shadow bg-white"
                          id="default-navbar"
-                         data-primary style="background-color: rgb(50, 50, 118);">
+                         data-primary>
                         
                         <!-- Navbar Brand -->
                         <a href="/"
                            class="navbar-brand mr-16pt">
-                            <div style="color: white;">
-                                Manage Employees
+                            <div style="color: black;">
+                                CRUD Operations
                             </div>
                         </a>
                         <!-- // END Navbar Brand -->
                         <div class="flex"></div>
                         <!-- Navbar Menu -->
                         <div class="nav navbar-nav flex-nowrap d-flex mr-16pt">
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-minus-circle"></i>&nbsp; Delete</button>
-                            <button type="button" class="btn btn-success" style="margin-left: 15px;" data-toggle="modal" data-target="#add_employee"><i class="fa fa-plus-circle"></i>&nbsp; Add New Employee</button>
+
                         </div>
                         <!-- // END Navbar Menu -->
                     </div>
                     <!-- // END Navbar -->
+
                 </div>
             </div>
             <!-- // END Header -->
@@ -127,6 +127,18 @@
             <!-- Header Layout Content -->
             <div class="mdk-header-layout__content page-content ">
                 <div class="page__container page-section">
+
+                    <div class="row card-body mb-32pt" style="background-color: rgb(50, 50, 118);">
+                        <div class="col-sm-6">
+                            <h2 style="color: white;">
+                                Manage Employees
+                            </h2>
+                        </div>
+                        <div class="col-sm-6">
+                            <button style="margin: 1vh;" type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#add_employee"><i class="fa fa-plus-circle"></i>&nbsp; Add New Employee</button>
+                            <button style="margin: 1vh;" type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-minus-circle"></i>&nbsp; Delete</button>
+                        </div>
+                    </div>
 
                     <div class="table-responsive">
                         <table id="emp_table_id" class="table table-bordered table-striped text-center">
