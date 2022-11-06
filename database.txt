@@ -1,0 +1,7 @@
+create table employee(
+	id bigserial primary key,
+	name varchar(500),
+	email varchar(5000),
+	address varchar(5000),
+	phone varchar(10)
+);

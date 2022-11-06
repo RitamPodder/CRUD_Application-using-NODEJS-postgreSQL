@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en"
+      dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible"
+              content="IE=edge">
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Chrome, Firefox OS and Opera -->
+        <meta name="theme-color" content="#FDFEFE">
+
+        <title id="#">
+            CRUD Operations
+        </title>
+
+        <link rel="icon" href="./public/images/logo/crud-operations.png" type="image/gif" sizes="16x20">
+
+        <!-- Prevent the demo from appearing in search engines -->
+        <meta name="robots"
+              content="noindex">
+
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CRoboto:400,500%7CExo+2:600&display=swap"
+              rel="stylesheet">
+
+        <!-- Preloader -->
+        <link type="text/css"
+              href="./public/vendor/spinkit.css"
+              rel="stylesheet">
+
+        <!-- Perfect Scrollbar -->
+        <link type="text/css"
+              href="./public/vendor/perfect-scrollbar.css"
+              rel="stylesheet">
+
+        <!-- Material Design Icons -->
+        <link type="text/css"
+              href="./public/css/material-icons.css"
+              rel="stylesheet">
+
+        <!-- Font Awesome Icons -->
+        <link type="text/css"
+              href="./public/css/fontawesome.css"
+              rel="stylesheet">
+
+        <!-- Preloader -->
+        <link type="text/css"
+              href="./public/css/preloader.css"
+              rel="stylesheet">
+
+        <!-- App CSS -->
+        <link type="text/css"
+              href="./public/css/app.css"
+              rel="stylesheet">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- jQuery -->
+        <script src="./public/vendor/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!--Datatables-->
+        <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+        <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+        
+        <!--Drop Down-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+    
+    </head>
+
+    <body class="layout-sticky-subnav layout-default">
+
+        <div class="preloader">
+            <div class="sk-chase">
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+            </div>
+
+        </div>
+
+        <!-- Header Layout -->
+        <div class="mdk-header-layout js-mdk-header-layout">
+
+            <!-- Header -->
+            <div id="header"
+                 class="mdk-header js-mdk-header mb-0"
+                 data-fixed
+                 data-effects="">
+                <div class="mdk-header__content">
+
+                    <!-- Navbar -->
+
+                    <div class="navbar navbar-expand pr-0 navbar-shadow"
+                         id="default-navbar"
+                         data-primary style="background-color: rgb(50, 50, 118);">
+                        
+                        <!-- Navbar Brand -->
+                        <a href="/"
+                           class="navbar-brand mr-16pt">
+                            <div style="color: white;">
+                                Manage Employees
+                            </div>
+                        </a>
+                        <!-- // END Navbar Brand -->
+                        <div class="flex"></div>
+                        <!-- Navbar Menu -->
+                        <div class="nav navbar-nav flex-nowrap d-flex mr-16pt">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-minus-circle"></i>&nbsp; Delete</button>
+                            <button type="button" class="btn btn-success" style="margin-left: 15px;" data-toggle="modal" data-target="#add_employee"><i class="fa fa-plus-circle"></i>&nbsp; Add New Employee</button>
+                        </div>
+                        <!-- // END Navbar Menu -->
+                    </div>
+                    <!-- // END Navbar -->
+                </div>
+            </div>
+            <!-- // END Header -->
+
+            <!-- Header Layout Content -->
+            <div class="mdk-header-layout__content page-content ">
+                <div class="page__container page-section">
+
+                    <div class="table-responsive">
+                        <table id="emp_table_id" class="table table-bordered table-striped text-center">
+                            <thead>
+                                <tr>
+                                    <th scope="col"><input type="checkbox" name="checkAll" id="selectAll"></th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">Phone</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="emp_tbody_id">
+                                
+                            </tbody>
+                        </table>
+                        <script>
+                            function showempData(){
+                                const url1 = "/employee/getdata";
+                                fetch(url1)
+                                    .then(function (response) {
+                                        return response.json();
+                                    })
+                                    .then(function (data) {
+                                        appendData1(data);
+                                        $(document).ready(function () {
+                                            $('#emp_table_id').DataTable({
+                                                "paging" : true,
+                                                "columns":[
+                                                    {
+                                                        "sortable": false
+                                                    },
+                                                    {
+                                                        "sortable": false
+                                                    },
+                                                    {
+                                                        "sortable": false
+                                                    },
+                                                    {
+                                                        "sortable": false
+                                                    },
+                                                    {
+                                                        "sortable": false
+                                                    },
+                                                    {
+                                                        "sortable": false
+                                                    }
+                                                ],
+                                                "searching" : false,
+                                                "bLengthChange": false,
+                                                "pageLength" : 5
+                                            });
+                                        });
+                                    })
+                                    .catch(function (err) {
+                                        console.log('error: ' + err);
+                                    });
+                            }
+                            function appendData1(data){
+                                for(var i=0; i<data.length; i++){
+                                    $('#emp_tbody_id').append(
+                                        '<tr>' +
+                                            '<td scope="col">'+
+                                                '<input value="'+ data[i].id +'" type="checkbox" name="cKInputNumId" class="checkbox singleCheckBox">'+
+                                            '</td>' +
+                                            '<td scope="col">' + data[i].name +'</td>' +
+                                            '<td scope="col">' + data[i].email +'</td>' +
+                                            '<td scope="col">' + data[i].address +'</td>' +
+                                            '<td scope="col">' + data[i].phone +'</td>' +
+                                            '<td scope="col">' +
+                                                '<button id="'+ data[i].id +'" onclick="edit_employee(this.id)" type="button" class="action-btn btn btn-outline-warning waves-effect" data-toggle="modal" data-target="#emp_edit" style="font-size: larger; border: none;"> <i class="fa fa-pencil"></i></button> &nbsp;' +
+                                                '<button id="'+ data[i].id +'" onclick="edit_employee(this.id)" type="button" class="action-btn btn btn-outline-danger waves-effect" data-toggle="modal" data-target="#per_emp_delete" style="font-size: larger; border: none;"> <i class="fa fa-trash"></i></button>' +
+                                            '</td>' +
+                                        '</tr>'
+                                    );
+                                }
+                            }
+
+                            function showemployeeDataafterdelete(){
+                                const url5 = "/employee/getdata";
+                                fetch(url5)
+                                    .then(function (response) {
+                                        return response.json();
+                                    })
+                                    .then(function (data) {
+                                        appendData1(data);
+                                    })
+                                    .catch(function (err) {
+                                        console.log('error: ' + err);
+                                    });
+                            }
+                        </script>
+                    </div>
+
+                </div>
+            </div>
+            <!-- // END Header Layout Content -->
+
+            <!-- Footer -->
+            <div class="bg-white border-top-2 mt-auto">
+                <div class="container page__container page-section d-flex flex-column">
+                    <p class="text-50 small mt-n1 mb-0">Developed by <a href="https://ritam-podder.netlify.app/">Ritam Podder</a></p>
+                </div>
+            </div>
+            <!-- // END Footer -->
+
+        </div>
+        <!-- // END Header Layout -->
+
+        <!-- modal data start -->
+        <div class="modal fade" id="delete_employee" role="dialog">
+            <div class="modal-dialog">
+            
+              <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!--<form id="edit_form">
+                        <input type="text" id="#" name="student_class" class="form-control" required="" readonly value="student_class" hidden>
+                    </form>-->
+                    <p>
+                        Are you sure you want to delete these Records?
+                    </p>
+                    <p style="color: rgb(171, 171, 7);">
+                        This action cannot be undone.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                    <a type="button" class="sendDelete btn btn-danger" href="">Delete</a>
+                </div>
+            </div>
+              
+            </div>
+        </div>
+        <script>
+
+            $(document).ready(function(){
+                $('#selectAll').click(function(){
+                    $('.singleCheckBox').not(this).prop('checked', this.checked);
+                });
+            });
+
+            $(document).ready(function () {
+            
+                $(".sendDelete").click(function() {
+                   
+                    var delete_emp = [];
+                    var checkboxes = document.getElementsByClassName("checkbox");
+                
+                    for (var i = 0; i <= checkboxes.length-1; i++) {
+                        if (checkboxes[i].type === "checkbox" && checkboxes[i].checked) {
+                            delete_emp.push(checkboxes[i].value);
+                        }
+                    }
+                
+                    var link = "/delete/mass/emp?delete_emp=test&";
+                
+                    for(var i = 0; i <= delete_emp.length-1; i++){
+                        link += "delete_emp=" + delete_emp[i];
+                        if(i < delete_emp.length-1){
+                            link +=  "&";
+                        }
+                    }
+
+                    console.log(delete_emp, link);
+
+                    $(this).attr("href", link);
+                    
+                });
+            });
+        </script>
+        <script>          
+            function edit_employee(clicked_id){
+                          
+                const url3 = "/employee/getdata/by/id?id=" + clicked_id;
+                fetch(url3)
+            
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    
+                    .then(function (data) {
+                        
+                        $('#edit_id').empty();
+                        $('#edit_name_id').empty();
+                        $('#edit_email_id').empty();
+                        $('#edit_address_id').empty();
+                        $('#edit_phone_id').empty();
+
+                        $('#edit_id').val(data[0].id);
+                        $('#edit_name_id').val(data[0].name);
+                        $('#edit_email_id').val(data[0].email);
+                        $('#edit_address_id').val(data[0].address);
+                        $('#edit_phone_id').val(data[0].phone);
+
+                        //=============Remove Alret Start=====================//
+                        $("#alert_footer_id").empty();
+          
+                        $("#alert_footer_id").append(
+                            '<button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>' +
+                            '<button id="'+ data[0].id +'" onclick=remove_emp(this.id) type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>'
+                        )
+                        //=============Remove Alret End=====================//
+          
+              })
+              .catch(function (err) {
+                console.log('error: ' + err);
+              });           
+            }
+          
+            function remove_emp(clicked_id) {
+          
+                const url4 = "/remove/employee?id=" + clicked_id;
+                fetch(url4)
+                    .then(function () {
+                        //return response.json();
+                    })
+                    .then(function () {
+                        $("#emp_tbody_id tr").remove();
+                        showemployeeDataafterdelete();                  
+                      })
+                .catch(function (err) {
+                    console.log('error: ' + err);
+                });
+            }
+        </script>
+        <div class="modal fade" id="per_emp_delete" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated">
+                    <div class="modal-header">
+                        <h3 class="modal-title" style="color: rgb(23, 23, 97);">Delete Employee</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Are you sure you want to delete these Records?
+                        </p>
+                        <p style="color: rgb(171, 171, 7);">
+                            This action cannot be undone.
+                        </p>
+                    </div>
+                    <div class="modal-footer" id="alert_footer_id">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="emp_edit" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated">
+                    <div class="modal-header">
+                        <h3 class="modal-title" style="color: rgb(23, 23, 97);">Edit Employee</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+
+                    <form action="/update/employee" id="#" method="POST">
+                        <div class="modal-body">
+                            <label for="input-21" class="col-form-label">Name </label>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" id="edit_id" name="emp_id" class="form-control" required="" readonly hidden>
+                                        <input type="text" id="edit_name_id" name="name" class="form-control" required="">
+                                    </div>
+                                </div>
+                            </div>
+                            <label for="input-21" class="col-form-label">Email </label>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="email" id="edit_email_id" name="email" class="form-control" required="">
+                                    </div>
+                                </div>
+                            </div>
+                            <label for="input-21" class="col-form-label">Address </label>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <textarea rows="3" id="edit_address_id" name="address" class="form-control" required=""></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <label for="input-21" class="col-form-label">Phone </label>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" id="edit_phone_id" name="phone" class="form-control" required="" onkeyup="numberonly(this)" maxlength="10">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="cancel" class="btn btn-light">Cancel</button>
+                            <button type="submit" class="btn btn-success">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="add_employee" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated">
+                    <div class="modal-header">
+                        <h3 class="modal-title" style="color: rgb(23, 23, 97);">Add Employee</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+
+                    <form action="/add/employee" id="#" method="POST">
+                        <div class="modal-body">
+                            <label for="input-21" class="col-form-label">Name </label>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" name="name" class="form-control" required="">
+                                    </div>
+                                </div>
+                            </div>
+                            <label for="input-21" class="col-form-label">Email </label>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="email" name="email" class="form-control" required="">
+                                    </div>
+                                </div>
+                            </div>
+                            <label for="input-21" class="col-form-label">Address </label>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <textarea rows="3" name="address" class="form-control" required=""></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <label for="input-21" class="col-form-label">Phone </label>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" name="phone" class="form-control" required="" onkeyup="numberonly(this)" maxlength="10">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="cancel" class="btn btn-light">Cancel</button>
+                            <button type="submit" class="btn btn-success">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--Modal End-->
+
+        <!-- Bootstrap -->
+        <script src="./public/vendor/popper.min.js"></script>
+        <script src="./public/vendor/bootstrap.min.js"></script>
+        <!-- Perfect Scrollbar -->
+        <script src="./public/vendor/perfect-scrollbar.min.js"></script>
+        <!-- DOM Factory -->
+        <script src="./public/vendor/dom-factory.js"></script>
+        <!-- MDK -->
+        <script src="./public/vendor/material-design-kit.js"></script>
+        <!-- App JS -->
+        <script src="./public/js/app.js"></script>
+        <!-- Preloader -->
+        <script src="./public/js/preloader.js"></script>
+        <!-- Global Settings -->
+        <script src="./public/js/settings.js"></script>
+        <!-- Moment.js -->
+        <script src="./public/vendor/moment.min.js"></script>
+        <script src="./public/vendor/moment-range.js"></script>
+        <!-- List.js -->
+        <script src="./public/vendor/list.min.js"></script>
+        <script src="./public/js/list.js"></script>
+
+        <!-- DataTables  & Plugins -->
+        <script src="plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+        <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+        <script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+        <script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+        <script src="plugins/jszip/jszip.min.js"></script>
+        <script src="plugins/pdfmake/pdfmake.min.js"></script>
+        <script src="plugins/pdfmake/vfs_fonts.js"></script>
+        <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+        <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+        <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+        <script>
+            function numberonly(input)
+            {
+                var regex = /[^0-9]/gi;
+                input.value = input.value.replace(regex,"");
+            }
+        </script>
+    </body>
+
+    <script>
+        showempData();
+    </script>
+    
+</html>
